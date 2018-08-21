@@ -29,4 +29,4 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-change user.email as '598481331@qq.com1'
+change user.email as '598481331@qq.com1's
