@@ -27,17 +27,28 @@
                                 </el-carousel-item>
                         </el-carousel>
                 </div>
+                <div>
+                        <input v-model="value" v-on:keyup.enter="addNew">
+                        <button @click="delete1">delete</button>
+                        <h1 v-for="item in items">
+                                <ul>
+                                        <li v-text="item.label" v-on:click='finish(item)' v-bind:class="{Finished:item.isFinished}"></li>
+                                </ul>
+                        </h1>
+                </div>
         </div>
 
 </template>
 
 <script>
-                        
-        export default{
+
+        export default {
                 data() {
                         return {
                                 input: '',
                                 out: '',
+                                items: [],
+                                value: '',
                         }
                 },
                 methods: {
@@ -66,17 +77,17 @@
                                 }
                         },
                         //打开函数
-                        open() {
-                                this.$alert('你肯定就是我的宝贝小宋啦', '小宋', {
-                                        confirmButtonText: '确定',
-                                        callback: action => {
-                                                this.$message({
-                                                        type: 'info',
-                                                        message: '小宋，我喜欢你啊'
-                                                });
-                                        }
-                                });
-                        },
+                        // open() {
+                        //         this.$alert('你肯定就是我的宝贝小宋啦', '小宋', {
+                        //                 confirmButtonText: '确定',
+                        //                 callback: action => {
+                        //                         this.$message({
+                        //                                 type: 'info',
+                        //                                 message: '小宋，我喜欢你啊'
+                        //                         });
+                        //                 }
+                        //         });
+                        // },
                         //打开函数2
                         open2() {
                                 if (this.input != '') {
@@ -92,8 +103,17 @@
                                 }
 
                         },
+                        addNew: function () {
+                                this.items.push({ label: this.value, isFinished: false })
+                        },
+                        delete1: function () {
+                                this.items.pop()
+                        },
+                        finish: function (item) {
+                                item.isFinished = !item.isFinished
+                        }
                 }
-        
+
         }        
 </script>
 <style>
@@ -119,5 +139,9 @@
                 height: auto;
                 max-width: 100%;
                 display: block;
+        }
+
+        .Finished {
+                font-size: 90px
         }
 </style>
