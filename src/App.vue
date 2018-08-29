@@ -6,12 +6,12 @@
     <el-button @click="delete1">delete</el-button>
     <el-button @click="text1">global</el-button>
     <el-button v-on:click="greet">click me!</el-button>
+    <todo-item></todo-item>
     <h1 v-for="item in items">
       <ul>
         <li v-text="item.label" v-on:click='finish(item)' v-bind:class="{Finished:item.isFinished}" v-bind:title="FinishedMsg"></li>
       </ul>
     </h1>
-    <todo-item></todo-item>
   </div>
 </template>
 
