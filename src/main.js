@@ -18,4 +18,7 @@ new Vue({
   render:h => h(App),
   components: { App },
   template: '<App/>',
+}),
+Vue.component('todo-item', {
+  template: '<li>这是个待办项</li>'
 })
