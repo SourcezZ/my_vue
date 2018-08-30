@@ -18,9 +18,9 @@ new Vue({
   render: h => h(App),
   components: { App },
   template: '<App/>',
-  methods: {
-    sleep: function (time) {
-      return new Promise((resolve) => setTimeout(resolve, time));
-    }
-  }
+  // methods: {
+  //   sleep: function (time) {
+  //     return new Promise((resolve) => setTimeout(resolve, time));
+  //   }
+  // }
 })

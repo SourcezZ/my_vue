@@ -1,18 +1,32 @@
 <template>
   <!-- <router-view></router-view> -->
   <div>
-    <el-input class="input"v-model="value" v-on:keyup.enter.native="addNew"></el-input>
-    <el-button v-on:click="addNew">addNew</el-button>
-    <el-button @click="delete1">delete</el-button>
-    <el-button @click="text1">global</el-button>
-    <el-button v-on:click="greet">click me!</el-button>
-    <el-input class="input"v-model='question'></el-input>
-    <span>{{answer}}</span>
+    <div class="div">
+      <el-input class="input" v-model="value" v-on:keyup.enter.native="addNew"></el-input>
+      <el-button v-on:click="addNew">addNew</el-button>
+      <el-button @click="delete1">delete</el-button>
+      <el-button @click="text1">global</el-button>
+      <el-button v-on:click="greet">click me!</el-button>
+    </div>
+    <div class="div">
+      <el-input class="input" v-model='question'></el-input>
+      <span>{{answer}}</span>
+    </div>
+    <div class="div">
+      <input type="checkbox" id="jack" value="Jack1" v-model="checkedNames">
+      <label for="jack">Jack</label>
+      <input type="checkbox" id="john" value="John" v-model="checkedNames">
+      <label for="john">John</label>
+      <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+      <label for="mike">Mike</label>
+    </div>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
     <!-- <todo-item></todo-item> -->
-    <h1 v-for="item in items">
+    <h1 v-for="(item,index) in items">
       <ul>
         <li v-text="item.label" v-on:click='finish(item)' v-bind:class="{Finished:item.isFinished}" v-bind:title="FinishedMsg"></li>
-      <!-- 可绑定多个属性，此处Finished，也可加'' ， -->
+        <!-- 可绑定多个属性，此处Finished，也可加'' ， -->
       </ul>
     </h1>
   </div>
@@ -25,35 +39,36 @@
       return {
         items: Store.fetch(),
         value: '',
-        FinishedMsg:'待办事项',
-        question:'',
-        answer:'waitting for you question'
+        FinishedMsg: '待办事项',
+        question: '',
+        answer: 'waitting for you question',
+        checkedNames: []
       }
     },
-    watch:{
-        items:{
-          handler:function(items){
-            Store.save(items)
-          },
-          deep:true
+    watch: {
+      items: {
+        handler: function (items) {
+          Store.save(items)
         },
-        question: function(){
-          this.answer='you\'r typing'
-          this.endtyping()
-        }
+        deep: true
       },
+      question: function () {
+        this.answer = 'you\'r typing'
+        this.endtyping()
+      }
+    },
     methods: {
       addNew: function () {
-        if (this.value=='') {
+        if (this.value == '') {
           alert("事项不能为空")
           return
         }
-        this.items.push({ 
-          label: this.value, 
-          time:Date(),
-          isFinished: false 
-          })
-          this.value=''
+        this.items.push({
+          label: this.value,
+          time: Date(),
+          isFinished: false
+        })
+        this.value = ''
       },
       delete1: function () {
         this.items.pop()
@@ -61,17 +76,17 @@
       finish: function (item) {
         item.isFinished = !item.isFinished
       },
-      endtyping:function(){
-        if (this.question.indexOf('?')!==-1) {
-          this.answer='I\'m thinking'
+      endtyping: function () {
+        if (this.question.indexOf('?') !== -1) {
+          this.answer = 'I\'m thinking'
           this.sleep(5000).then(() => {
-            this.answer='you\'r handsome '
+            this.answer = 'you\'r handsome '
           })
         }
       },
-      //  sleep : function (time) {
-      //    return new Promise((resolve) => setTimeout(resolve, time));
-      //  }
+      sleep: function (time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+      }
     }
   }
 </script>
@@ -80,7 +95,11 @@
   .Finished {
     text-decoration: underline
   }
-  .input{
+
+  .input {
     width: 200px
+  }
+  .div{
+    margin: 10px
   }
 </style>
