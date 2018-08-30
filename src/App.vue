@@ -6,10 +6,13 @@
     <el-button @click="delete1">delete</el-button>
     <el-button @click="text1">global</el-button>
     <el-button v-on:click="greet">click me!</el-button>
-    <todo-item></todo-item>
+    <el-input class="input"v-model='question'></el-input>
+    <span>{{answer}}</span>
+    <!-- <todo-item></todo-item> -->
     <h1 v-for="item in items">
       <ul>
         <li v-text="item.label" v-on:click='finish(item)' v-bind:class="{Finished:item.isFinished}" v-bind:title="FinishedMsg"></li>
+      <!-- 可绑定多个属性，此处Finished，也可加'' ， -->
       </ul>
     </h1>
   </div>
@@ -23,6 +26,8 @@
         items: Store.fetch(),
         value: '',
         FinishedMsg:'待办事项',
+        question:'',
+        answer:'waitting for you question'
       }
     },
     watch:{
@@ -31,6 +36,10 @@
             Store.save(items)
           },
           deep:true
+        },
+        question: function(){
+          this.answer='you\'r typing'
+          this.endtyping()
         }
       },
     methods: {
@@ -52,6 +61,17 @@
       finish: function (item) {
         item.isFinished = !item.isFinished
       },
+      endtyping:function(){
+        if (this.question.indexOf('?')!==-1) {
+          this.answer='I\'m thinking'
+          this.sleep(5000).then(() => {
+            this.answer='you\'r handsome '
+          })
+        }
+      },
+      //  sleep : function (time) {
+      //    return new Promise((resolve) => setTimeout(resolve, time));
+      //  }
     }
   }
 </script>
