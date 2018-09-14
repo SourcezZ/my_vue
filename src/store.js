@@ -1,10 +1,15 @@
-const STORAGE_KEY = 'todos-vuejs'
-
+//const STORAGE_KEY = 'todos-vuejs'
 export default {
-    fetch() {
-        return JSON.parse(window.localStorage.getItem(STORAGE_KEY)||'[]')
+    fetchTodoList() {
+        return JSON.parse(window.localStorage.getItem('todoList')||'[]')
     },
-    save(items) {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+    saveTodoList(items) {
+        window.localStorage.setItem('todoList', JSON.stringify(items))
+    },
+    fetchStar() {
+        return (window.localStorage.getItem('star')||'[]')
+    },
+    saveStar(star){
+        window.localStorage.setItem('star', star)
     }
 }
